@@ -64,10 +64,5 @@ def task_one():
     return output
 
 
-@app.route("/tasktwo")
-def task_two():
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
