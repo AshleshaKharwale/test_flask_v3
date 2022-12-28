@@ -5,7 +5,7 @@ This module contains generic functions to insert data into sql tables
 """
 from pymysql.err import IntegrityError
 from models.dal.db_conn_helper import get_db_conn
-from typing import List
+from typing import List,Tuple
 
 
 def insert_resource(
@@ -55,3 +55,14 @@ def insert_resource(
             pass
 
     return result
+
+
+def fetch_resources(table_name: str) -> Tuple:
+    sql_query = f"select * from {table_name};"
+    # breakpoint()
+    with get_db_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute(sql_query)
+        result = cursor.fetchall()
+    return result
+
