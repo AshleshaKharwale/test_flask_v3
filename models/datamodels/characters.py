@@ -100,7 +100,7 @@ if __name__ == "__main__":
             "https://swapi.dev/api/starships/12/",
             "https://swapi.dev/api/starships/22/"
         ],
-        "created": '2014-12-09', # "2014-12-09T13:50:51.644000Z",
+        "created": '2014-12-09T21:17:56.891000Z', # "2014-12-09T13:50:51.644000Z",
         "edited": "2014-12-20T21:17:56.891000Z",
         "url": "https://swapi.dev/api/people/1/"
     }
@@ -111,4 +111,5 @@ if __name__ == "__main__":
     pprint(char)
     # for i in char:
     #     print(i)
-    pprint(dict(char))
+    # pprint(dict(char))
+    pprint(char.dict())
