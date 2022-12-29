@@ -4,6 +4,7 @@ from typing import List
 
 
 class Films(Base):
+    film_id: int
     title: str
     episode_id: int
     opening_crawl: str

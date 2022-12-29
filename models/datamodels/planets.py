@@ -4,6 +4,7 @@ from pprint import pprint
 
 
 class Planets(Base):
+    planet_id: int
     name: str
     rotation_period: int
     orbital_period: int

@@ -5,6 +5,7 @@ from pprint import pprint
 
 
 class Starships(Base):
+    starship_id: int
     name: str
     model: str
     manufacturer: str

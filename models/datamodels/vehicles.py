@@ -4,6 +4,7 @@ from pprint import pprint
 
 
 class Vehicles(Base):
+    vehicle_id: int
     cargo_capacity: Union[int, str]
     consumables: str
     cost_in_credits: Union[int, str]

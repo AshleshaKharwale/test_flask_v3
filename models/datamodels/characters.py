@@ -7,6 +7,7 @@ from pydantic import validator
 
 class Characters(Base):
     # Attribute fields
+    char_id: int
     name: str
     height: str
     mass: str

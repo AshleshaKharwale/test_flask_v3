@@ -5,6 +5,7 @@ from pydantic import validator
 
 
 class Species(Base):
+    species_id: int
     name: str
     classification: str
     designation: str

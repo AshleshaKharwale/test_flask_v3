@@ -32,25 +32,25 @@ def get_vehicles():
 def get_species():
     data = fetch_resources("species")
     # breakpoint()
-    return Response(json.dumps(data), status=200)
+    return Response(json.dumps(data), status=200, mimetype="application/json")
 
 
 @crud_app.route("/starships", methods=["GET"])
 def get_starships():
     data = fetch_resources("starship")
     # breakpoint()
-    return Response(json.dumps(data), status=200)
+    return Response(json.dumps(data), status=200, mimetype="application/json")
 
 
 @crud_app.route("/planets", methods=["GET"])
 def get_planets():
     data = fetch_resources("planet")
     # breakpoint()
-    return Response(json.dumps(data), status=200)
+    return Response(json.dumps(data), status=200, mimetype="application/json")
 
 
 @crud_app.route("/films", methods=["GET"])
 def get_films():
     data = fetch_resources("film")
     # breakpoint()
-    return Response(json.dumps(data), status=200)
+    return jsonify(data)
