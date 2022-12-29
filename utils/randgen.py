@@ -13,6 +13,6 @@ class ProduceChars:
 
     def __iter__(self):
         current = self.start
-        while current < 16:
+        while current < 6:
             yield random.randrange(self.start, self.stop+1)
             current += 1

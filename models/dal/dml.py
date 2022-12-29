@@ -44,3 +44,12 @@ def fetch_resources(table_name: str) -> Tuple:
         result = cursor.fetchall()
     return result
 
+
+def fetch_resource(table_name: str, primary_key: str, primary_value: int) -> Tuple:
+    sql_query = f"select * from {table_name} where {primary_key} = {primary_value};"
+
+    with get_db_conn() as conn:
+        cursor = conn.cursor()
+        cursor.execute(sql_query)
+        result = cursor.fetchone()
+    return result

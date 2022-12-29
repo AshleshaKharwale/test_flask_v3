@@ -1,6 +1,8 @@
+from pydantic import BaseModel, validator
 from models.basemodel import Base
 from pprint import pprint
-from typing import List
+from typing import List, Union
+from datetime import date, datetime
 
 
 class Films(Base):
@@ -11,11 +13,30 @@ class Films(Base):
     director: str
     producer: str
     release_date: str
+
     characters: List[str]
     planets: List[str]
     starships: List[str]
     vehicles: List[str]
     species: List[str]
+
+
+class ResponseFilms(BaseModel):
+    film_id: int
+    title: str
+    episode_id: int
+    opening_crawl: str
+    director: str
+    producer: str
+    release_date: Union[str, date, datetime]
+    created: str
+    edited: str
+    url: str
+
+    @validator("release_date")
+    def release_date_check(cls, release_date):
+        if isinstance(release_date, date) or isinstance(release_date, datetime):
+            return release_date.strftime("%Y-%m-%d")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from pydantic import validator
+from pydantic import validator, BaseModel
 from models.basemodel import Base
 from typing import List, Union
 from pprint import pprint
@@ -19,6 +19,7 @@ class Starships(Base):
     hyperdrive_rating: float
     MGLT: int
     starship_class: str
+
     pilots: List[str]
     films: List[str]
 
@@ -42,6 +43,26 @@ class Starships(Base):
     def hyperdrive_rating_validation(cls, hyperdrive_rating):
         if isinstance(hyperdrive_rating, float):
             return int(hyperdrive_rating)
+
+
+class ResponseStarships(BaseModel):
+    starship_id: int
+    name: str
+    model: str
+    manufacturer: str
+    cost_in_credits: Union[int, str]
+    length: Union[int, float, str]
+    max_atmosphering_speed: Union[int, str]
+    crew: Union[int, str]
+    passengers: Union[int, str]
+    cargo_capacity: int
+    consumables: str
+    hyperdrive_rating: float
+    MGLT: int
+    starship_class: str
+    created: str
+    edited: str
+    url: str
 
 
 if __name__ == "__main__":

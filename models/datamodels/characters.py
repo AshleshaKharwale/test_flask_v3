@@ -1,8 +1,10 @@
 import json
+from pydantic import BaseModel
 from models.basemodel import Base
 from typing import List, Optional
 from pprint import pprint
 from pydantic import validator
+from datetime import datetime, date
 
 
 class Characters(Base):
@@ -37,6 +39,37 @@ class Characters(Base):
             cls.height = height
             return cls.height
 
+    # breakpoint()
+    @validator("created")
+    def created_check(cls, created):
+        if isinstance(created, datetime) or isinstance(created, date):
+            return created.strftime("%d-%m-%y")
+        else:
+            return cls.created
+
+    @validator("edited")
+    def edited_check(cls, edited):
+        if isinstance(edited, datetime) or isinstance(edited, date):
+            return edited.strftime("%Y-%m-%d")
+        else:
+            return edited
+
+
+class ResponseCharacters(BaseModel):
+    char_id: int
+    name: str
+    height: str
+    mass: str
+    hair_color: str
+    skin_color: str
+    eye_color: str
+    birth_year: str
+    gender: str
+    homeworld: str
+    edited: str
+    created: str
+    url: str
+
 
 if __name__ == "__main__":
     data = {
@@ -67,12 +100,13 @@ if __name__ == "__main__":
             "https://swapi.dev/api/starships/12/",
             "https://swapi.dev/api/starships/22/"
         ],
-        "created": "2014-12-09T13:50:51.644000Z",
+        "created": '2014-12-09', # "2014-12-09T13:50:51.644000Z",
         "edited": "2014-12-20T21:17:56.891000Z",
         "url": "https://swapi.dev/api/people/1/"
     }
 
-    breakpoint()
+    # breakpoint()
+    data.update({"char_id": 1})
     char = Characters(**data)
     pprint(char)
     # for i in char:

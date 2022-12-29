@@ -38,11 +38,11 @@ def task_one():
     print(__name__)
     print("current module getting executed")
 
-    print("[INFO] Producing 15 random characters...")
+    print("[INFO] Producing 5 random characters...")
     random_chars = []
     for i in ProduceChars(1, 82):
         random_chars.append(i)
-    print(f"[INFO] done - producing random 15 characters")
+    print(f"[INFO] done - producing random 5 characters")
 
     output = {}
 
@@ -150,9 +150,7 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
     for key, value in data_set.items():
         if isinstance(value, list):     # removing cross-reference fields from data object
             new_data.pop(key)
-        elif isinstance(value, datetime):   # converting datetime object to str date
-            new_data[key] = new_data[key].strftime("%Y-%m-%d")
-        elif isinstance(value, type(None)):  # replace None with Null
+        elif value is None:  # replace None with Null
             new_data[key] = 'Null'
 
     return new_data
@@ -204,51 +202,52 @@ def task_four():
     film_data.update({"film_id": 1})
     film_data = Films(**film_data)
 
-    # fetching urls of each resource in film_1
-    charlist = film_data.characters
-    planetlist = film_data.planets
-    specieslist = film_data.species
-    starshipslist = film_data.starships
-    vehiclelist = film_data.vehicles
-
-    # Replace the data for each of the endpoint listed in the JSON object.
-    char_data = fetch_url_data(charlist)
-    planet_data = fetch_url_data(planetlist)
-    species_data = fetch_url_data(specieslist)
-    starships_data = fetch_url_data(starshipslist)
-    vehicle_data = fetch_url_data(vehiclelist)
-
-    # remove all cross-referencing URLs from each resource and validate data using datamodels
-    char_data = validate_data(char_data, Characters, "char_id")
-    planet_data = validate_data(planet_data, Planets, "planet_id")
-    species_data = validate_data(species_data, Species, "species_id")
-    starships_data = validate_data(starships_data, Starships, "starship_id")
-    vehicle_data = validate_data(vehicle_data, Vehicles, "vehicle_id")
-
-    #  and insert that data into respective database tables
-    char_table = "characters"
-    for data in char_data:
-        print(f"rows affected - {insert_resource(char_table, data)}")
-
-    planet_table = "planet"
-    for data in planet_data:
-        print(f"rows affected - {insert_resource(planet_table, data)}")
-
-    vehicle_table = "vehicle"
-    for data in vehicle_data:
-        print(f"rows affected - {insert_resource(vehicle_table, data)}")
-
-    starship_table = "starship"
-    for data in starships_data:
-        print(f"rows affected - {insert_resource(starship_table, data)}")
-
-    species_table = "species"
-    # breakpoint()
-    for data in species_data:
-        print(f"rows affected - {insert_resource(species_table, data)}")
+    # # fetching urls of each resource in film_1
+    # charlist = film_data.characters
+    # planetlist = film_data.planets
+    # specieslist = film_data.species
+    # starshipslist = film_data.starships
+    # vehiclelist = film_data.vehicles
+    #
+    # # Replace the data for each of the endpoint listed in the JSON object.
+    # char_data = fetch_url_data(charlist)
+    # planet_data = fetch_url_data(planetlist)
+    # species_data = fetch_url_data(specieslist)
+    # starships_data = fetch_url_data(starshipslist)
+    # vehicle_data = fetch_url_data(vehiclelist)
+    #
+    # # remove all cross-referencing URLs from each resource and validate data using datamodels
+    # char_data = validate_data(char_data, Characters, "char_id")
+    # planet_data = validate_data(planet_data, Planets, "planet_id")
+    # species_data = validate_data(species_data, Species, "species_id")
+    # starships_data = validate_data(starships_data, Starships, "starship_id")
+    # vehicle_data = validate_data(vehicle_data, Vehicles, "vehicle_id")
+    #
+    # #  and insert that data into respective database tables
+    # char_table = "characters"
+    # for data in char_data:
+    #     print(f"rows affected - {insert_resource(char_table, data)}")
+    #
+    # planet_table = "planet"
+    # for data in planet_data:
+    #     print(f"rows affected - {insert_resource(planet_table, data)}")
+    #
+    # vehicle_table = "vehicle"
+    # for data in vehicle_data:
+    #     print(f"rows affected - {insert_resource(vehicle_table, data)}")
+    #
+    # starship_table = "starship"
+    # for data in starships_data:
+    #     print(f"rows affected - {insert_resource(starship_table, data)}")
+    #
+    # species_table = "species"
+    # # breakpoint()
+    # for data in species_data:
+    #     print(f"rows affected - {insert_resource(species_table, data)}")
 
     film_table = "film"
     film_data = remove_cross_reference(film_data)
     # breakpoint()
     print(f"rows affected - {insert_resource(film_table, film_data)}")
+
     return jsonify({"Success": 200})

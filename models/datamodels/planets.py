@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from models.basemodel import Base
 from typing import List, Union
 from pprint import pprint
@@ -14,8 +15,25 @@ class Planets(Base):
     terrain: str
     surface_water: Union[int, str]
     population: Union[int, str]
+
     residents: List[str]
     films: List[str]
+
+
+class ResponsePlanets(BaseModel):
+    planet_id: int
+    name: str
+    rotation_period: int
+    orbital_period: int
+    diameter: int
+    climate: str
+    gravity: str
+    terrain: str
+    created: str
+    edited: str
+    url: str
+    surface_water: Union[int, str]
+    population: Union[int, str]
 
 
 if __name__ == "__main__":

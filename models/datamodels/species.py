@@ -1,7 +1,7 @@
 from models.basemodel import Base
 from typing import List, Union, Optional
 from pprint import pprint
-from pydantic import validator
+from pydantic import validator, BaseModel
 
 
 class Species(Base):
@@ -15,6 +15,7 @@ class Species(Base):
     eye_colors: str
     average_lifespan: Union[int, str]
     homeworld: Optional[str]
+
     people: List[str]
     films: List[str]
 
@@ -23,6 +24,22 @@ class Species(Base):
         if isinstance(homeworld, type(None)):
             cls.homeworld = 'Null'
             return cls.homeworld
+
+
+class ResponseSpecies(BaseModel):
+    species_id: int
+    name: str
+    classification: str
+    designation: str
+    average_height: Union[int, str]
+    skin_colors: str
+    hair_colors: str
+    eye_colors: str
+    average_lifespan: Union[int, str]
+    homeworld: Optional[str]
+    created: str
+    edited: str
+    url: str
 
 
 if __name__ == "__main__":

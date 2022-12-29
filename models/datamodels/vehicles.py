@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from models.basemodel import Base
 from typing import List, Optional, Union
 from pprint import pprint
@@ -16,8 +17,26 @@ class Vehicles(Base):
     name: str
     passengers: int
     vehicle_class: str
+
     pilots: List[str]
     films: List[str]
+
+
+class ResponseVehicles(BaseModel):
+    vehicle_id: int
+    cargo_capacity: Union[int, str]
+    consumables: str
+    cost_in_credits: Union[int, str]
+    crew: int
+    length: Union[int, float]
+    manufacturer: str
+    max_atmosphering_speed: int
+    model: str
+    name: str
+    passengers: int
+    vehicle_class: str
+    created: str
+    edited: str
 
 
 if __name__ == "__main__":
