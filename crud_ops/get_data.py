@@ -1,11 +1,19 @@
 """
+(plural API endpoints)
 http://127.0.0.1:5000/swapi/people
-http://127.0.0.1:5000/swapi/films (plural API endpoint)
-http://127.0.0.1:5000/swapi/films/1 (singular API endpoint)
+http://127.0.0.1:5000/swapi/films
 http://127.0.0.1:5000/swapi/species
 http://127.0.0.1:5000/swapi/vehicles
 http://127.0.0.1:5000/swapi/starships
 http://127.0.0.1:5000/swapi/planets
+
+(singular API endpoints)
+http://127.0.0.1:5000/swapi/people/1
+http://127.0.0.1:5000/swapi/films/2
+http://127.0.0.1:5000/swapi/species/3
+http://127.0.0.1:5000/swapi/vehicles/4
+http://127.0.0.1:5000/swapi/starships/5
+http://127.0.0.1:5000/swapi/planets/6
 """
 from pydantic import parse_obj_as
 from typing import List
@@ -19,10 +27,10 @@ from models.datamodels.planets import ResponsePlanets
 from models.datamodels.starships import ResponseStarships
 
 
-crud_app = Blueprint("CRUD", __name__, url_prefix="/swapi")
+get_data = Blueprint("CRUD", __name__, url_prefix="/swapi")
 
 
-@crud_app.route("/people", methods=["GET"])
+@get_data.route("/people", methods=["GET"])
 def get_characters():
     data = fetch_resources("characters")
     characters = parse_obj_as(List[ResponseCharacters], data)
@@ -32,7 +40,7 @@ def get_characters():
     # return jsonify(response_obj)
 
 
-@crud_app.route("/vehicles", methods=["GET"])
+@get_data.route("/vehicles", methods=["GET"])
 def get_vehicles():
     data = fetch_resources("vehicle")
     vehicles = parse_obj_as(List[ResponseVehicles], data)
@@ -42,8 +50,7 @@ def get_vehicles():
     return Response(response_obj, status=200, mimetype="application/json")
 
 
-
-@crud_app.route("/species", methods=["GET"])
+@get_data.route("/species", methods=["GET"])
 def get_species():
     data = fetch_resources("species")
     species = parse_obj_as(List[ResponseSpecies], data)
@@ -52,7 +59,7 @@ def get_species():
     return Response(response_obj, status=200, mimetype="application/json")
 
 
-@crud_app.route("/starships", methods=["GET"])
+@get_data.route("/starships", methods=["GET"])
 def get_starships():
     data = fetch_resources("starship")
     starships = parse_obj_as(List[ResponseStarships], data)
@@ -61,7 +68,7 @@ def get_starships():
     return Response(response_obj, status=200, mimetype="application/json")
 
 
-@crud_app.route("/planets", methods=["GET"])
+@get_data.route("/planets", methods=["GET"])
 def get_planets():
     data = fetch_resources("planet")
     planets = parse_obj_as(List[ResponsePlanets], data)
@@ -70,7 +77,7 @@ def get_planets():
     return Response(response_obj, status=200, mimetype="application/json")
 
 
-@crud_app.route("/films", methods=["GET"])
+@get_data.route("/films", methods=["GET"])
 def get_films():
     data = fetch_resources("film")
     films = parse_obj_as(List[ResponseFilms], data)
@@ -80,7 +87,7 @@ def get_films():
 
 
 # Singular film url
-@crud_app.route("/films/<int:index>")
+@get_data.route("/films/<int:index>")
 def get_film(index):
     data = fetch_resource("film", "film_id", index)
     # breakpoint()
@@ -93,7 +100,7 @@ def get_film(index):
         return Response(json.dumps(resp), status=404, mimetype="application/json")
 
 
-@crud_app.route("/people/<int:index>")
+@get_data.route("/people/<int:index>")
 def get_char(index):
     data = fetch_resource("characters", "char_id", index)
     # breakpoint()
@@ -106,7 +113,7 @@ def get_char(index):
         return Response(json.dumps(resp), status=404, mimetype="application/json")
 
 
-@crud_app.route("/planets/<int:index>")
+@get_data.route("/planets/<int:index>")
 def get_planet(index):
     data = fetch_resource("planet", "planet_id", index)
     # breakpoint()
@@ -119,7 +126,7 @@ def get_planet(index):
         return Response(json.dumps(resp), status=404, mimetype="application/json")
 
 
-@crud_app.route("/species/<int:index>")
+@get_data.route("/species/<int:index>")
 def get_specie(index):
     data = fetch_resource("species", "species_id", index)
     # breakpoint()
@@ -132,7 +139,7 @@ def get_specie(index):
         return Response(json.dumps(resp), status=404, mimetype="application/json")
 
 
-@crud_app.route("/vehicles/<int:index>")
+@get_data.route("/vehicles/<int:index>")
 def get_vehicle(index):
     data = fetch_resource("vehicle", "vehicle_id", index)
     # breakpoint()
@@ -145,7 +152,7 @@ def get_vehicle(index):
         return Response(json.dumps(resp), status=404, mimetype="application/json")
 
 
-@crud_app.route("/starships/<int:index>")
+@get_data.route("/starships/<int:index>")
 def get_starship(index):
     data = fetch_resource("starship", "starship_id", index)
     # breakpoint()

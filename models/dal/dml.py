@@ -24,7 +24,6 @@ def insert_resource(
     # Generates query with table_name, dictionary keys as column names and
     # dictionary values as values.
 
-
     with get_db_conn() as conn:
         cursor = conn.cursor()
         try:
@@ -32,7 +31,7 @@ def insert_resource(
             conn.commit()
             return result
         except IntegrityError:
-            pass
+            return 0
 
 
 def fetch_resources(table_name: str) -> Tuple:

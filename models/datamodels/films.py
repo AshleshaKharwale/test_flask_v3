@@ -1,7 +1,7 @@
 from pydantic import BaseModel, validator
 from models.basemodel import Base
 from pprint import pprint
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import date, datetime
 
 
@@ -14,11 +14,11 @@ class Films(Base):
     producer: str
     release_date: str
 
-    characters: List[str]
-    planets: List[str]
-    starships: List[str]
-    vehicles: List[str]
-    species: List[str]
+    characters: Optional[List[str]]
+    planets: Optional[List[str]]
+    starships: Optional[List[str]]
+    vehicles: Optional[List[str]]
+    species: Optional[List[str]]
 
 
 class ResponseFilms(BaseModel):

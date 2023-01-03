@@ -1,6 +1,6 @@
 from pydantic import validator, BaseModel
 from models.basemodel import Base
-from typing import List, Union
+from typing import List, Union, Optional
 from pprint import pprint
 
 
@@ -20,8 +20,8 @@ class Starships(Base):
     MGLT: int
     starship_class: str
 
-    pilots: List[str]
-    films: List[str]
+    pilots: Optional[List[str]]
+    films: Optional[List[str]]
 
     @validator("crew")
     def crew_validation(cls, crew):

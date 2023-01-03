@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from models.basemodel import Base
-from typing import List, Union
+from typing import List, Union, Optional
 from pprint import pprint
 
 
@@ -16,9 +16,13 @@ class Planets(Base):
     surface_water: Union[int, str]
     population: Union[int, str]
 
-    residents: List[str]
-    films: List[str]
+    residents: Optional[List[str]]
+    films: Optional[List[str]]
 
+    @validator("population")
+    def check_population(cls, population):
+        if isinstance(population, str):
+            return None
 
 class ResponsePlanets(BaseModel):
     planet_id: int

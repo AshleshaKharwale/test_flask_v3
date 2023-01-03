@@ -16,14 +16,15 @@ class Species(Base):
     average_lifespan: Union[int, str]
     homeworld: Optional[str]
 
-    people: List[str]
-    films: List[str]
+    people: Optional[List[str]]
+    films: Optional[List[str]]
 
-    @validator("homeworld")
-    def validate_homeworld(cls, homeworld):
-        if isinstance(homeworld, type(None)):
-            cls.homeworld = 'Null'
-            return cls.homeworld
+    # @validator("homeworld")
+    # def validate_homeworld(cls, homeworld):
+    #     breakpoint()
+    #     if homeworld is None:
+    #         cls.homeworld = 'Null'
+    #     return homeworld
 
 
 class ResponseSpecies(BaseModel):

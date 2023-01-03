@@ -1,12 +1,14 @@
 from flask import Flask, render_template
 from starwars_task.tasks import swapi
-from crud_ops.get_data import crud_app
+from crud_ops.get_data import get_data
+from crud_ops.post_data import post_data
 
 
 # application instantiation
 app = Flask(__name__)
 app.register_blueprint(swapi)
-app.register_blueprint(crud_app)
+app.register_blueprint(get_data)
+app.register_blueprint(post_data)
 
 
 @app.route("/")

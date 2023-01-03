@@ -18,8 +18,8 @@ class Vehicles(Base):
     passengers: int
     vehicle_class: str
 
-    pilots: List[str]
-    films: List[str]
+    pilots: Optional[List[str]]
+    films: Optional[List[str]]
 
 
 class ResponseVehicles(BaseModel):
