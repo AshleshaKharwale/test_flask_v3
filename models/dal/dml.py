@@ -52,3 +52,13 @@ def fetch_resource(table_name: str, primary_key: str, primary_value: int) -> Tup
         cursor.execute(sql_query)
         result = cursor.fetchone()
     return result
+
+
+def delete_resource(table_name:str, primary_key: str, primary_value: int) -> int:
+    sql_query = f"delete from {table_name} where {primary_key}={primary_value};"
+
+    with get_db_conn() as conn:
+        cursor = conn.cursor()
+        result = cursor.execute(sql_query)
+        conn.commit()
+    return result

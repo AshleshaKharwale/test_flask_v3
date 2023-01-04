@@ -25,13 +25,11 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
     """
     1. Takes pydantic datamodel object as argument of any resource.
     2. Converts it to dictionary data type.
-    3. Removes cross-reference fields if any. (ex., character["url1","url2"])
-    4. Converts datetime object to string date in format - "YYYY-MM-DD"
-    5. If any field contain None value, converts it into Null, so that it can be inserted into the database.
-    6. Returns this formatted dictionary.
+    3. Removes cross-reference fields if any. (ex., character["url1","url2"]) or None fields.
+    4. Returns this formatted dictionary.
 
     :param data_set: validated pydantic data model object
-    :return: Dictionary
+    :return: Data in dictionary without cross-reference and None fields.
     """
     data_set = dict(data_set)
     new_data = data_set.copy()
@@ -48,8 +46,10 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
 def post_characters():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("char_id") is None:
-        request_data["char_id"] = request_data.get("url")[-2]
+    if request_data.get("species_id") is None:
+        url = request_data.get("url")
+        url = url.split("/")
+        request_data["species_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Characters(**request_data)
@@ -79,8 +79,10 @@ def post_characters():
 def post_films():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("film_id") is None:
-        request_data["film_id"] = request_data.get("url")[-2]
+    if request_data.get("species_id") is None:
+        url = request_data.get("url")
+        url = url.split("/")
+        request_data["species_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Films(**request_data)
@@ -103,15 +105,17 @@ def post_films():
         response_obj = {"Error": error_msg}
 
     finally:
-        return Response(json.dumps(response_obj), status=200, mimetype="application/json")
+        return Response(json.dumps(response_obj), status=201, mimetype="application/json")
 
 
 @post_data.route("/vehicles", methods=["POST"])
 def post_vehicles():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("vehicle_id") is None:
-        request_data["vehicle_id"] = request_data.get("url")[-2]
+    if request_data.get("species_id") is None:
+        url = request_data.get("url")
+        url = url.split("/")
+        request_data["species_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Vehicles(**request_data)
@@ -134,15 +138,17 @@ def post_vehicles():
         response_obj = {"Error": error_msg}
 
     finally:
-        return Response(json.dumps(response_obj), status=200, mimetype="application/json")
+        return Response(json.dumps(response_obj), status=201, mimetype="application/json")
 
 
 @post_data.route("/starships", methods=["POST"])
 def post_starships():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("starship_id") is None:
-        request_data["starship_id"] = request_data.get("url")[-2]
+    if request_data.get("species_id") is None:
+        url = request_data.get("url")
+        url = url.split("/")
+        request_data["species_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Starships(**request_data)
@@ -165,7 +171,7 @@ def post_starships():
         response_obj = {"Error": error_msg}
 
     finally:
-        return Response(json.dumps(response_obj), status=200, mimetype="application/json")
+        return Response(json.dumps(response_obj), status=201, mimetype="application/json")
 
 
 @post_data.route("/species", methods=["POST"])
@@ -177,7 +183,7 @@ def post_species():
         url = url.split("/")
         request_data["species_id"] = url[-2]
 
-    breakpoint()
+    # breakpoint()
     response_obj = {}
     try:
         request_data = Species(**request_data)
@@ -201,15 +207,17 @@ def post_species():
         response_obj = {"Error": error_msg}
 
     finally:
-        return Response(json.dumps(response_obj), status=200, mimetype="application/json")
+        return Response(json.dumps(response_obj), status=201, mimetype="application/json")
 
 
 @post_data.route("/planets", methods=["POST"])
 def post_planets():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("planet_id") is None:
-        request_data["planet_id"] = request_data.get("url")[-2]
+    if request_data.get("species_id") is None:
+        url = request_data.get("url")
+        url = url.split("/")
+        request_data["species_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Planets(**request_data)
@@ -232,5 +240,5 @@ def post_planets():
         response_obj = {"Error": error_msg}
 
     finally:
-        return Response(json.dumps(response_obj), status=200, mimetype="application/json")
+        return Response(json.dumps(response_obj), status=201, mimetype="application/json")
 
