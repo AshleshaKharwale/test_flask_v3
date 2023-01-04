@@ -54,7 +54,7 @@ def fetch_resource(table_name: str, primary_key: str, primary_value: int) -> Tup
     return result
 
 
-def delete_resource(table_name:str, primary_key: str, primary_value: int) -> int:
+def delete_resource(table_name: str, primary_key: str, primary_value: int) -> int:
     sql_query = f"delete from {table_name} where {primary_key}={primary_value};"
 
     with get_db_conn() as conn:
@@ -62,3 +62,35 @@ def delete_resource(table_name:str, primary_key: str, primary_value: int) -> int
         result = cursor.execute(sql_query)
         conn.commit()
     return result
+
+
+def update_resource(table_name: str, data_set: Dict, primary_key: str, primary_value: int) -> int:
+    breakpoint()
+    sql_query = "update {} set {} where {}={};"
+    set_values = []
+    for key, value in data_set.items():
+        if isinstance(value, int):
+            val = f"{key}={value}"
+            set_values.append(val)
+        else:
+            val = f"{key}='{value}'"
+            set_values.append(val)
+
+    set_values = ",".join(set_values)
+    sql_query = sql_query.format(table_name, set_values, primary_key, primary_value)
+    print(sql_query)
+
+
+if __name__ == "__main__":
+    data = {
+        "film_id": 6,
+        "title": "Revenge of the Sith",
+        "episode_id": 3,
+        "director": "George Lucas",
+        "producer": "Rick McCallum",
+        "release_date": "2005-05-19",
+        "created": "2014-12-20T18:49:38.403000Z",
+        "edited": "2014-12-20T20:47:52.073000Z",
+        "url": "https://swapi.dev/api/films/6/"
+    }
+    update_resource("film", data, "film_id", data.pop("film_id"))
