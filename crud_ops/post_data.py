@@ -46,10 +46,10 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
 def post_characters():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("species_id") is None:
+    if request_data.get("people_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["species_id"] = url[-2]
+        request_data["people_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Characters(**request_data)
@@ -79,10 +79,10 @@ def post_characters():
 def post_films():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("species_id") is None:
+    if request_data.get("film_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["species_id"] = url[-2]
+        request_data["film_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Films(**request_data)
@@ -112,10 +112,10 @@ def post_films():
 def post_vehicles():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("species_id") is None:
+    if request_data.get("vehicle_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["species_id"] = url[-2]
+        request_data["vehicle_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Vehicles(**request_data)
@@ -145,10 +145,10 @@ def post_vehicles():
 def post_starships():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("species_id") is None:
+    if request_data.get("starship_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["species_id"] = url[-2]
+        request_data["starship_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Starships(**request_data)
@@ -214,10 +214,10 @@ def post_species():
 def post_planets():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("species_id") is None:
+    if request_data.get("planet_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["species_id"] = url[-2]
+        request_data["planet_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Planets(**request_data)
