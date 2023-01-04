@@ -43,7 +43,7 @@ class Characters(Base):
     @validator("created")
     def created_check(cls, created):
         if isinstance(created, datetime) or isinstance(created, date):
-            return created.strftime("%d-%m-%y")
+            return created.strftime("%Y-%m-%d")
         else:
             return cls.created
 

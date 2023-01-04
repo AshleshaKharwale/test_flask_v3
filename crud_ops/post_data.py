@@ -46,10 +46,10 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
 def post_characters():
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
-    if request_data.get("people_id") is None:
+    if request_data.get("char_id") is None:
         url = request_data.get("url")
         url = url.split("/")
-        request_data["people_id"] = url[-2]
+        request_data["char_id"] = url[-2]
     response_obj = {}
     try:
         request_data = Characters(**request_data)

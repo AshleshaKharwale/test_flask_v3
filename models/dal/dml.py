@@ -65,7 +65,7 @@ def delete_resource(table_name: str, primary_key: str, primary_value: int) -> in
 
 
 def update_resource(table_name: str, data_set: Dict, primary_key: str, primary_value: int) -> int:
-    breakpoint()
+    # breakpoint()
     sql_query = "update {} set {} where {}={};"
     set_values = []
     for key, value in data_set.items():
@@ -78,7 +78,12 @@ def update_resource(table_name: str, data_set: Dict, primary_key: str, primary_v
 
     set_values = ",".join(set_values)
     sql_query = sql_query.format(table_name, set_values, primary_key, primary_value)
-    print(sql_query)
+
+    with get_db_conn() as conn:
+        cursor = conn.cursor()
+        result = cursor.execute(sql_query)
+        conn.commit()
+    return result
 
 
 if __name__ == "__main__":
