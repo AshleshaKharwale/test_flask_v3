@@ -33,7 +33,7 @@ class Starships(Base):
                     crew_ += i
 
             if not crew_:  # returns null if crew doesn't have any digit
-                return 'Null'
+                return None
 
             return int(crew_)
         elif isinstance(crew, int):
@@ -63,6 +63,47 @@ class ResponseStarships(BaseModel):
     created: str
     edited: str
     url: str
+
+
+class PatchStarships(BaseModel):
+    starship_id: int
+    name: Optional[str]
+    model: Optional[str]
+    manufacturer: Optional[str]
+    cost_in_credits: Optional[Union[int, str]]
+    length: Optional[Union[int, float, str]]
+    max_atmosphering_speed: Optional[Union[int, str]]
+    crew: Optional[Union[int, str]]
+    passengers: Optional[Union[int, str]]
+    cargo_capacity: Optional[int]
+    consumables: Optional[str]
+    hyperdrive_rating: Optional[float]
+    MGLT: Optional[int]
+    starship_class: Optional[str]
+    created: Optional[str]
+    edited: Optional[str]
+    url: Optional[str]
+
+    @validator("crew")
+    def crew_validation(cls, crew):
+
+        if isinstance(crew, str):
+            crew_ = ""
+            for i in crew:
+                if i.isdigit():
+                    crew_ += i
+
+            if not crew_:  # returns null if crew doesn't have any digit
+                return None
+
+            return int(crew_)
+        elif isinstance(crew, int):
+            return crew
+
+    @validator("hyperdrive_rating")
+    def hyperdrive_rating_validation(cls, hyperdrive_rating):
+        if isinstance(hyperdrive_rating, float):
+            return int(hyperdrive_rating)
 
 
 if __name__ == "__main__":

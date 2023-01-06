@@ -43,6 +43,22 @@ class ResponseSpecies(BaseModel):
     url: str
 
 
+class PatchSpecies(BaseModel):
+    species_id: int
+    name: Optional[str]
+    classification: Optional[str]
+    designation: Optional[str]
+    average_height: Optional[Union[int, str]]
+    skin_colors: Optional[str]
+    hair_colors: Optional[str]
+    eye_colors: Optional[str]
+    average_lifespan: Optional[Union[int, str]]
+    homeworld: Optional[str]
+    created: Optional[str]
+    edited: Optional[str]
+    url: Optional[str]
+
+
 if __name__ == "__main__":
     speci_data = {
         "name": "Human",

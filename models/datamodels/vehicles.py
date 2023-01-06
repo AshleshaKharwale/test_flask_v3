@@ -39,6 +39,23 @@ class ResponseVehicles(BaseModel):
     edited: str
 
 
+class PatchVehicles(BaseModel):
+    vehicle_id: int
+    cargo_capacity: Optional[Union[int, str]]
+    consumables: Optional[str]
+    cost_in_credits: Optional[Union[int, str]]
+    crew: Optional[int]
+    length: Optional[Union[int, float]]
+    manufacturer: Optional[str]
+    max_atmosphering_speed: Optional[int]
+    model: Optional[str]
+    name: Optional[str]
+    passengers: Optional[int]
+    vehicle_class: Optional[str]
+    created: Optional[str]
+    edited: Optional[str]
+
+
 if __name__ == "__main__":
     vehicles_data = {
             "cargo_capacity":  "none",  # "50000",

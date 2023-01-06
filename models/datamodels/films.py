@@ -39,6 +39,24 @@ class ResponseFilms(BaseModel):
             return release_date.strftime("%Y-%m-%d")
 
 
+class PatchFilms(BaseModel):
+    film_id: int
+    title: Optional[str]
+    episode_id: Optional[int]
+    opening_crawl: Optional[str]
+    director: Optional[str]
+    producer: Optional[str]
+    release_date: Optional[Union[str, date, datetime]]
+    created: Optional[str]
+    edited: Optional[str]
+    url: Optional[str]
+
+    @validator("release_date")
+    def release_date_check(cls, release_date):
+        if isinstance(release_date, date) or isinstance(release_date, datetime):
+            return release_date.strftime("%Y-%m-%d")
+
+
 if __name__ == "__main__":
     film_data = {
         "title": "A New Hope",

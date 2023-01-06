@@ -71,6 +71,22 @@ class ResponseCharacters(BaseModel):
     url: str
 
 
+class PatchCharacters(BaseModel):
+    char_id: int
+    name: Optional[str]
+    height: Optional[str]
+    mass: Optional[str]
+    hair_color: Optional[str]
+    skin_color: Optional[str]
+    eye_color: Optional[str]
+    birth_year: Optional[str]
+    gender: Optional[str]
+    homeworld: Optional[str]
+    edited: Optional[str]
+    created: Optional[str]
+    url: Optional[str]
+
+
 if __name__ == "__main__":
     data = {
         "name": "Luke Skywalker",

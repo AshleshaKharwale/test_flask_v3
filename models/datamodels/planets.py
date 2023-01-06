@@ -24,6 +24,7 @@ class Planets(Base):
         if isinstance(population, str):
             return None
 
+
 class ResponsePlanets(BaseModel):
     planet_id: int
     name: str
@@ -38,6 +39,27 @@ class ResponsePlanets(BaseModel):
     url: str
     surface_water: Union[int, str]
     population: Union[int, str]
+
+
+class PatchPlanets(BaseModel):
+    planet_id: int
+    name: Optional[str]
+    rotation_period: Optional[str]
+    orbital_period: Optional[str]
+    diameter: Optional[str]
+    climate: Optional[str]
+    gravity: Optional[str]
+    terrain: Optional[str]
+    created: Optional[str]
+    edited: Optional[str]
+    url: Optional[str]
+    surface_water: Optional[Union[int, str]]
+    population: Optional[Union[int, str]]
+
+    @validator("population")
+    def check_population(cls, population):
+        if isinstance(population, str):
+            return None
 
 
 if __name__ == "__main__":
