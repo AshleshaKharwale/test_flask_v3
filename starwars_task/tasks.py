@@ -148,10 +148,9 @@ def remove_cross_reference(data_set: "pydantic datamodel object") -> Dict:
     data_set = dict(data_set)
     new_data = data_set.copy()
     for key, value in data_set.items():
-        if isinstance(value, list):     # removing cross-reference fields from data object
+        if isinstance(value, list) or value is None:
+            # removing cross-reference fields from data object
             new_data.pop(key)
-        elif value is None:  # replace None with Null
-            new_data[key] = 'Null'
 
     return new_data
 
@@ -188,7 +187,7 @@ def validate_data(resource: List[Dict], validator: "pydantic datamodel", primary
         # breakpoint()
         url = data.get("url")
         url = url.split("/")
-        primary_value = [i for i in url if isinstance(i, int)]
+        primary_value = url[-2]
         data.update({primary_key: primary_value})
         data = validator(**data)    # validates each url data using pydantic datamodels
         new = remove_cross_reference(data)  # removes cross-reference fields from each url data
