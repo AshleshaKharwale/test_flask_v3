@@ -183,7 +183,7 @@ def patch_starships(id_=None):
 
 @patch_data.patch("/vehicles/<int:id_>")
 @patch_data.patch("/vehicles")
-def patch_starships(id_=None):
+def patch_vehicles(id_=None):
     # breakpoint()
     request_data = dict(request.args) if request.args else request.json
     if id_ is not None:

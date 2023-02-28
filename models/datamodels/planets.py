@@ -37,8 +37,8 @@ class ResponsePlanets(BaseModel):
     created: str
     edited: str
     url: str
-    surface_water: Union[int, str]
-    population: Union[int, str]
+    surface_water: Optional[Union[int, str]]
+    population: Optional[Union[int, str]]
 
 
 class PatchPlanets(BaseModel):
